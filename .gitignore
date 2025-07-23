@@ -1,0 +1,5 @@
+__pycache__
+venv
+storage
+zwift_parser/__pycache__
+versions.py

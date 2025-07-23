@@ -1,0 +1,5 @@
+flet
+#zwift-workouts-parser
+validators
+show-in-file-manager
+keyring

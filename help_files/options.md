@@ -1,0 +1,1 @@
+Select your default download folder path where your workouts are stored.
