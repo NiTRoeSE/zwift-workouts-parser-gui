@@ -11,7 +11,7 @@ More time to ride workouts. :-)
 
 Parse workouts from https://whatsonzwift.com and use it in Zwift ( if you want to try a single workout from a training plan without the need to start it or in your favorite riding software which can import *.zwo workout files)
 
-[Download latest release here](https://github.com/octo-org/octo-repo/releases/latest).
+[Download latest release here](https://github.com/NiTRoeSE/zwift-workouts-parser-gui/releases/latest).
 
 ![Sample](assets/sample.png "a title")
 ![Sample](assets/sample.gif "a title")
