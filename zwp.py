@@ -104,14 +104,6 @@ class ZWP(ft.Column):
                 try:
                     #self.zp_module_path = f'{' '.join(zp.__path__)}/zwift_parser.py'
                     #self.logger.info(f'ZP Module path: {self.zp_module_path}')
-                    
-                    """path to python must be from venv otherwise after build not working because python not found .."""
-                    #result = subprocess.run(["venv/bin/python", self.zp_module_path, "-ed", self.downloadfolder_path, url],capture_output=True, text=True)
-                    
-                    #result = subprocess.run(["/Users/nitro/Medialyse-Git/zwift-workout-parse/build/macos/ZWP.app/Contents/Frameworks/Python.framework/Versions/3.12/Python", self.zp_module_path, "-ed", self.downloadfolder_path, url],capture_output=True, text=True)
-                    #print(result.stdout)
-                   
-                    #result = subprocess.run(["./zwift_parser.py", "-ed", self.downloadfolder_path, url],capture_output=True, text=True)
 
                     result = zp.Parser(self.downloadfolder_path,[url])
                     result = result.get_result([url])
@@ -145,17 +137,18 @@ class ZWP(ft.Column):
 
                             tile_text = f'{tile_text}\nSaved file in {self.downloadfolder_path}/{self.zwp_subfolder}/{self.zwp_workout_name}'
 
-                            
-
                         else:
                             self.logger.info(f'detect training plan mode - parse multiple workouts at once')
                             tile_text = result
                             tile_text_multi = ""
 
                             for parse in tile_text:
-                                if "Parsing url" not in parse and "- Parsing workout" not in parse and parse != '' and parse != '\n':
-                                    #print(parse.encode(encoding="utf-8") )
-                                    
+
+                                successful_parsed = False
+
+                                if parse != None and "Parsing url" not in parse and "- Parsing workout" not in parse and parse != '' and parse != '\n':
+                                    print(parse.encode(encoding="utf-8") )
+                                   
                                     parse = parse.replace("--","")
                                     parse = parse.replace("(Parsed)", "successful.")
                                     parse = parse.strip()
@@ -169,15 +162,25 @@ class ZWP(ft.Column):
                                     self.zwp_subfolder = zwp_subfolder[0]
 
                                     tile_text_multi = f'{tile_text_multi}\n{parse}'
-
-                            tile_text = tile_text_multi
+                                    successful_parsed = True
+                                    save_text = f'Saved training plan workouts in {self.downloadfolder_path}/{self.zwp_subfolder}'
+                                
+                                if successful_parsed == False and parse != None:
+                                    """ zwift-workouts-parser only prints - Parsing workout (16/35) and nothing more if not possible to parse"""
+                                    self.zwp_subfolder = ""
+                                    tile_text_multi = f'{tile_text_multi}\n{parse} failed.'
+                                    save_text = f'Could not parse workout plan, nothing to save.'
+                                    self.logger.warning(f'{parse} failed.')
                             
-                            tile_text = f'{tile_text}\nSaved training plan workouts in {self.downloadfolder_path}/{self.zwp_subfolder}'
-                           
+                            tile_text = tile_text_multi 
+                            tile_text = f'{tile_text}\n{save_text}'
 
                         self.list_tile.subtitle = ft.Text(tile_text,style = ft.TextStyle(font_family="Roboto",size=12))
                         self.list_tile.data = {"path":self.downloadfolder_path, "subfolder":self.zwp_subfolder}
-                        self.list_tile.leading = ft.Icon(ft.Icons.ANALYTICS_OUTLINED,color=ft.Colors.GREEN_400)
+                        if successful_parsed == True:
+                            self.list_tile.leading = ft.Icon(ft.Icons.ANALYTICS_OUTLINED,color=ft.Colors.GREEN_400)
+                        else:
+                            self.list_tile.leading = ft.Icon(ft.Icons.ANALYTICS_OUTLINED,color=ft.Colors.RED_400)
                         self.url_input.value = ""
                         self.url_input.update()
                        
@@ -189,6 +192,10 @@ class ZWP(ft.Column):
 
                 except Exception as zp_error:
                     print(zp_error)
+                    self.list_tile.leading = ft.Icon(ft.Icons.WORK_OUTLINE,color=ft.Colors.RED_400)
+                    self.list_tile.data = {"path":False, "subfolder":False}
+                    self.list_tile.subtitle = ft.Text(zp_error)
+                    self.response_list.update()
                     self.logger.error(f'Parsing error: {zp_error}')
 
             else:

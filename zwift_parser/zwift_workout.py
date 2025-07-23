@@ -128,7 +128,8 @@ class ZWorkout():
             text = requests.get(url, allow_redirects=True).content
         else: 
             print(f"-- Skipped workout {workout_fullname}")
-            return 
+            """ return normally printed out result to match modified version of zwift_parser.py to use Parser class directly in zwp.py"""
+            return f"-- Skipped workout {workout_fullname}"
 
         directory = f"{export_dir}/{self.path}"
 
