@@ -14,11 +14,10 @@ Parse workouts from https://whatsonzwift.com and use it in Zwift ( if you want t
 [Download latest release here](https://github.com/octo-org/octo-repo/releases/latest).
 
 ![Sample](assets/sample.png "a title")
-<video src="assets/sample.mp4" controls></video>
-
+![Sample](assets/sample.gif "a title")
 
 This project is possible thanks to [zwift_workouts_parser](https://github.com/alexshpunt/zwift_workouts_parser) !
 
 # Installation
 
-Simply [download](https://github.com/octo-org/octo-repo/releases/latest). the latest release for macos or windows and run it.
+Simply [download](https://github.com/NiTRoeSE/zwift-workouts-parser-gui/releases/latest). the latest release for macos or windows and run it.
