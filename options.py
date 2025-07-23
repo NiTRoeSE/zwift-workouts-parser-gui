@@ -21,6 +21,7 @@ class Options(ft.Column):
         self.check_results = {}
 
         if platform.system() == 'Windows':
+            self.username = os.getenv('username')
             self.default_downloadfolder_path = f'C:\\Users\\{self.username}\\Downloads'
             
         if platform.system() == 'Darwin':
