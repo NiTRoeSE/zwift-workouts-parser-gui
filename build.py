@@ -18,15 +18,15 @@ def get_git_commit_id():
 
 
 
-sr_version = get_latest_git_tag()
+version = get_latest_git_tag()
 git_commit = get_git_commit_id()
 
 # this file is used in optiosn about modal to display information
 with open("versions.py", "w") as f:
-    f.write(f"sr_version='{sr_version}'\n")
+    f.write(f"version='{version}'\n")
     f.write(f"commit='{git_commit}'")
 
 if platform.system() == 'Windows':
-    os.system(f'flet build windows --copyright "NiTRoSoft" --project "ZWP"  --company "NiTRoSoft" --build-version {sr_version}')
+    os.system(f'flet build windows --copyright "NiTRoSoft" --project "ZWP"  --company "NiTRoSoft" --build-version {version}')
 else:
-    os.system(f'flet build macos --copyright "NiTRoSoft" --project "ZWP"  --company "NiTRoSoft" --build-version {sr_version}')
+    os.system(f'flet build macos --copyright "NiTRoSoft" --project "ZWP"  --company "NiTRoSoft" --build-version {version}')

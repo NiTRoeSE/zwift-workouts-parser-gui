@@ -4,9 +4,9 @@ from helper import HelpTile
 import logging
 
 try:
-    from versions import sr_version, commit
+    from versions import version, commit
 except:
-    sr_version = '..could not get sr_version'
+    version = '..could not get version'
     commit = '..could not get commit hash'
 
 class Options(ft.Column):
@@ -88,7 +88,7 @@ class Options(ft.Column):
                                 ft.Row(
                                     controls=[
                                         ft.Text(
-                                            f"sr_version: {sr_version}",
+                                            f"version: {version}",
                                             text_align= ft.TextAlign.JUSTIFY,
                                             style = ft.TextStyle(font_family="RobotoMono",size=12),
                                         ),
