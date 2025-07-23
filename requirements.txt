@@ -3,3 +3,6 @@ flet
 validators
 show-in-file-manager
 keyring
+beautifulsoup4
+certifi
+lxml
